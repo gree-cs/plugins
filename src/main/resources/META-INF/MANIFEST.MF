@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Created-By: Gradle 8.10.2
+Version: 0.0.1
+Premain-Class: com.github.greecs.plugins.PreAgent
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+Build-JVM: 17.0.3.1 (Oracle Corporation 17.0.3.1+2-LTS-6)
+Build-OS: Windows 11 10.0 amd64
+Build-Plugin: IntelliJ Platform Gradle Plugin
+Build-Plugin-Version: 2.1.0
+Platform-Type: IU
+Platform-Version: 2024.1
+Platform-Build: 241.14494.240
+Kotlin-Available: true
+Kotlin-Stdlib-Bundled: false
+Kotlin-Version: 1.9.25
+
+
