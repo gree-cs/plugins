@@ -1,3 +1,4 @@
+import groovy.xml.dom.DOMCategory.attributes
 import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
@@ -5,6 +6,7 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 plugins {
     id("java") // Java support
     alias(libs.plugins.kotlin) // Kotlin support
+
     alias(libs.plugins.intelliJPlatform) // IntelliJ Platform Gradle Plugin
     alias(libs.plugins.changelog) // Gradle Changelog Plugin
     alias(libs.plugins.qodana) // Gradle Qodana Plugin
@@ -33,10 +35,29 @@ repositories {
 dependencies {
     testImplementation(libs.junit)
 
+    // 运行时依赖
+// https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy
+    implementation("net.bytebuddy:byte-buddy:1.12.6")
+// https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy-agent
+    testImplementation("net.bytebuddy:byte-buddy-agent:1.12.6")
+
+// https://mvnrepository.com/artifact/cn.hutool/hutool-all
+    implementation("cn.hutool:hutool-all:5.8.32")
+
+// https://mvnrepository.com/artifact/com.alibaba.fastjson2/fastjson2
+    implementation("com.alibaba.fastjson2:fastjson2:2.0.53")
+
+// https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
+    implementation("com.mysql:mysql-connector-j:8.3.0")
+
+// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.2")
+
+
     // IntelliJ Platform Gradle Plugin Dependencies Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {
-        create(providers.gradleProperty("platformType"), providers.gradleProperty("platformVersion"))
-
+        //create(providers.gradleProperty("platformType"), providers.gradleProperty("platformVersion"))
+        local("D:\\software\\IntelliJ IDEA 2024.1")
         // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.
         bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
 
@@ -101,11 +122,11 @@ intellijPlatform {
         channels = providers.gradleProperty("pluginVersion").map { listOf(it.substringAfter('-', "").substringBefore('.').ifEmpty { "default" }) }
     }
 
-    pluginVerification {
+   /* pluginVerification {
         ides {
             recommended()
         }
-    }
+    }*/
 }
 
 // Configure Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
@@ -129,7 +150,16 @@ tasks {
     wrapper {
         gradleVersion = providers.gradleProperty("gradleVersion").get()
     }
-
+    withType<JavaCompile> {
+   /*     sourceCompatibility = "17"
+        targetCompatibility = "17"*/
+        // 解决编译时中文报错
+        options.encoding = "UTF-8"
+    }
+    // 添加以下内容，解决运行时控制台中文乱码
+    withType<JavaExec> {
+        jvmArgs = listOf("-Dfile.encoding=UTF-8", "-Dsun.stdout.encoding=UTF-8", "-Dsun.stderr.encoding=UTF-8")
+    }
     publishPlugin {
         dependsOn(patchChangelog)
     }

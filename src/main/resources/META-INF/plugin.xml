@@ -9,10 +9,11 @@
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.greecs.plugins.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <!-- Add your extensions here -->
+        <java.programPatcher implementation="com.github.greecs.plugins.PerRun"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.greecs.plugins.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
 </idea-plugin>
