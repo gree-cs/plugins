@@ -4,7 +4,7 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
     id("java") // Java support
-    id("com.github.johnrengelman.shadow") version "7.0.0" // 确保使用最新版本
+    id("com.github.johnrengelman.shadow") version "8.1.1" // 确保使用最新版本
     alias(libs.plugins.kotlin) // Kotlin support
 
     alias(libs.plugins.intelliJPlatform) // IntelliJ Platform Gradle Plugin
