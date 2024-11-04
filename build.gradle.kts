@@ -37,9 +37,9 @@ dependencies {
 
     // 运行时依赖
 // https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy
-    implementation("net.bytebuddy:byte-buddy:1.12.6")
+    implementation("net.bytebuddy:byte-buddy:1.15.10")
 // https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy-agent
-    testImplementation("net.bytebuddy:byte-buddy-agent:1.12.6")
+    testImplementation("net.bytebuddy:byte-buddy-agent:1.15.10")
 
 // https://mvnrepository.com/artifact/cn.hutool/hutool-all
     implementation("cn.hutool:hutool-all:5.8.32")
